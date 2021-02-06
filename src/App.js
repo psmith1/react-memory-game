@@ -30,6 +30,7 @@ function App() {
   const [clicked, setClicked] = useState([])
   const [score, setScore] = useState(0)
   const [highscore, setHighScore] = useState(0)
+  const [status, setStatus] = useState('')
 
 
   useEffect(() => {
@@ -38,10 +39,12 @@ function App() {
     if (clicked.indexOf(clicked[clicked.length - 1]) !== clicked.length - 1) {
       setScore(() => 0)
       setClicked(c => [])
+      setStatus(() => 'bad')
       return;
     }
     if (clicked.length) {
       setScore((s) => s + 10)
+      setStatus(() => 'good')
     }
 
   }, [clicked])
@@ -65,11 +68,15 @@ function App() {
             <div className="highscore-wrapper">
               <span className="highscore sidebar-content"> {highscore} </span>
             </div>
+          <div className="status-label label"> </div>
+            <div className="status-wrapper">
+              <span className="status sidebar-content"> {status ? (status === 'good' ? '✅' : '❌') : null} </span>
+            </div>
           </div>
 
       </div>
       <div className="gameboard-wrapper">
-        <div className="gameboard">
+        <div className={`gameboard ${status}`}>
           {
             murrays.map((m => {
               return (
@@ -85,6 +92,12 @@ function App() {
             }))
           }
           </div>
+          {status === 'bad' ? (
+            <button
+              className="restartButton"
+              onClick= {(e) => setStatus('')}
+              > Retry </button>
+          ) : null}
         </div>
       </div>
   );

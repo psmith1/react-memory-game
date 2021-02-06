@@ -1,3 +1,7 @@
+* {
+  font-family: 'Luckiest Guy', cursive;
+}
+
 .App {
   display: flex;
   justify-content: stretch;
@@ -22,13 +26,14 @@
   color: white;
   padding: 30px;
   box-shadow: 0px 2px 5px 0 rgba(0,0,0,0.2), 0px 4px 15px 0 rgba(0,0,0,0.1);
-  font-family: 'Luckiest Guy', cursive;
 }
 .gameboard-wrapper {
   flex-basis: 100%;
   // border: 1px solid green;
   display: flex;
   padding: 20px;
+  overflow: hidden;
+  position: relative;
 
 }
 .gameboard {
@@ -37,6 +42,13 @@
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
+  &.bad {
+    animation: lose 1s forwards;
+  }
+}
+@keyframes lose {
+  from {transform: translateY(0);}
+  to {transform: translateY(120%);}
 }
 
 .button-wrapper {
@@ -76,7 +88,24 @@
   font-weight: bold;
 }
 
-@media (max-width: 800px) {
+.status {
+  font-size: 8rem;
+}
+
+.restartButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 30px;
+  font-size: 32pt;
+  transform: translate(-50%, -50%);
+  background: #D80D0D;
+  border: 0;
+  border-radius: 10px;
+  color: white;
+}
+
+@media (max-width: 1024px) {
   .App {
     flex-direction: column;
   }
